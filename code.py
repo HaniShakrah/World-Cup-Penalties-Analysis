@@ -6,6 +6,7 @@ import numpy as np
 #All figures below can be found in the 'World Cup Penalties Analysis' repository on Github (https://github.com/HaniShakrah/World-Cup-Penalties-Analysis)
 #Dataset is taken from https://www.kaggle.com/datasets/jandimovski/world-cup-penalty-shootouts-2022. I cleaned the .csv to only include Qatar 2022 data, but will later include analysis on all tournaments since 1994. 
 #This dataset only includes shots taken during penalty shootouts, and does not include penalties taken during the course of regulation or extra time. I added the ones missing for the 2022 tournament only.
+#For full description of data and explanation of column meanings, refer to https://www.kaggle.com/datasets/pablollanderos33/world-cup-penalty-shootouts
 
 #Read data (all penalties taken, whether during a penalty shootout or not, at the 2022 World Cup)
 data = pd.read_csv('qatarall.csv', low_memory=False)
@@ -13,7 +14,7 @@ data = pd.read_csv('qatarall.csv', low_memory=False)
 #Filter only relevant attributes
 data = data[['Team','Zone','Foot','Keeper','OnTarget','Goal']]
 
-#-----FIGURE 1 ----- histogram to see zone counts (Qatar only)
+#-----FIGURE 1 ----- Histogram to see zone counts (Qatar only)
 #We see that zones 7 and 9 (bottom corners) are by far the most common... something to keep in mind. Sample sizes for other zones are too small to draw any sizable conclusions. 
 sns.set_theme(style="darkgrid")
 sns.histplot(data, x='Zone',binwidth=1, hue='Foot', multiple='stack', discrete='True')
@@ -22,7 +23,7 @@ plt.xticks(bins)
 plt.show()
 
 
-#-----FIGURE 2 ----- where keepers dove
+#-----FIGURE 2 ----- Histogram to see where keepers dove
 #Overall, keepers dove to the right just as much as they did to the left. Rarely did keepers remain in the center; early indication shooting in the middle may be a great strategy.
 sns.set_theme(style="darkgrid")
 sns.histplot(data, x='Keeper',binwidth=1, hue='Goal', multiple='stack', discrete='True')
@@ -63,7 +64,7 @@ df = pd.DataFrame()
 df['Zone'] = [1,2,3,4,5,6,7,8,9]
 df['% Made'] = percentmadelist
 
-#-----FIGURE 3 ----- % made by zone
+#-----FIGURE 3 ----- Visualization to see % of shots made by zone
 #Shooting at a center zone (2,5,8) clearly had success, while the bottom corners, despite being most popular, had the lowest conversion rate.
 sns.barplot(data=df,  x='Zone', y='% Made').set(title='% Made by Zone, 2022 World Cup Only')
 plt.show()
@@ -122,7 +123,7 @@ df2=pd.DataFrame()
 df2['zone'] = [1,2,3,4,5,6,7,8,9]
 df2['percent_made'] = percentmadelist_all
 
-# -----FIGURE 4 ----- % made all
+# -----FIGURE 4 ----- Visualization to see % of shots made by zone (all data)
 #Inference from before gets more support, as the bottom corners have 2 of the worst % success rates. There is evidence also against the prior hypothesis that shooting down the middle is more successful, as zones 2, 5, and 8 do not show any statistical differences.
 z = sns.barplot(data=df2,  x='zone', y='percent_made')
 for index, row in df2.iterrows():
@@ -145,7 +146,7 @@ df3['ShotType'] = ['Ground', 'Air']
 df3['Percent_Made'] = [ground_percent_made, air_percent_made]
 print(df3)
 
-#-----FIGURE 5 ----- keeper dives by foot 
+#-----FIGURE 5 ----- Plot to see where keepers dive based on shooter's foot 
 #For right foot shooters, it looks like there was a slight inclination for keepers to dive to the left. Pair that with the suggestion to avoid the lower zones, and it seems as if a higher shot to the shooters right(for right footers at least), is ideal. Let's test this.
 sns.set_theme(style="darkgrid")
 sns.displot(all, x='Keeper', col='Foot', hue='Goal', multiple = 'stack', discrete= True)
@@ -168,8 +169,9 @@ left_open = left_open.loc[(left_open['Foot'] == 'L') & ((left_open['Zone'] == 1)
 center = all.copy()
 center = center.loc[((center['Zone'] == 2) | (center['Zone']==5) | (center['Zone']==8))]
 
-#-----FIGURE 6 ----- below creates each pie chart separately to combine into one figure using subplot() function
+#-----FIGURE 6 ----- Below creates each pie chart separately to combine into one figure using subplot() function
 #The only notable finding is the high percentage of shots taken by right footers to right zones (open body shots). This further supports the above analysis. 
+
 #Pie chart for across body shots (right footers)
 make_RA=len(right_across[right_across['Goal'] == 1])
 miss_RA=len(right_across[right_across['Goal'] == 0])
@@ -221,7 +223,7 @@ plt.pie(dataC, labels=labels, colors=colors, autopct='%.0f%%')
 plt.title('All Shooters - Center')
 plt.show()
 
-#-----FIGURE 7 -----  comparison of shot types
+#-----FIGURE 7 ----- Graph of success rates for different shot types
 #Another graphic to see that the open body shot for right footers have a great success rate. It also refutes the case that shooting down the middle is successful. For the Qatar 2022 data, shooting down the middle worked, but further analysis proves otherwise.
 df = pd.DataFrame()
 df['Shot'] = ['Left_Open', 'Left_Across', 'Center', 'Right_Open', 'Right_Across']
