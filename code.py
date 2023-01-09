@@ -3,9 +3,9 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 
-#All figures below can be find in the corresponding repository on Github
+#All figures below can be found in the 'World Cup Penalties Analysis' repository on Github (https://github.com/HaniShakrah/World-Cup-Penalties-Analysis)
 #Dataset is taken from https://www.kaggle.com/datasets/jandimovski/world-cup-penalty-shootouts-2022. I cleaned the .csv to only include Qatar 2022 data, but will later include analysis on all tournaments since 1994. 
-#However, this dataset only includes shots taken during penalty shootouts, and does not include penalties taken during the course of regulation or extra time. I added the ones missing for the 2022 tournament only.
+#This dataset only includes shots taken during penalty shootouts, and does not include penalties taken during the course of regulation or extra time. I added the ones missing for the 2022 tournament only.
 
 #Read data (all penalties taken, whether during a penalty shootout or not, at the 2022 World Cup)
 data = pd.read_csv('qatarall.csv', low_memory=False)
