@@ -232,5 +232,5 @@ plt.title('Comparison of Shot Types')
 plt.plot(df['Shot'],df['% Made'], color='green', ls=':', marker = 'D')
 plt.show()
 
-#As we have seen, there is evidence that shooting in one of the bottom zones is less successful. Right footed shooters also tend to have more success shooting to their right. 
+#As we have seen, although the bottom zones are most popular, there is evidence that shooting there is less successful than all other zones. Right footed shooters also tend to have more success when they open up their body and shoot to their right.
 #Obviously, individual player recommendations should be made on a game to game basis taking in consideration factors like the opposing keeper and shooter tendencies, but this is a great general starting point to see trends of shooters and keepers on the world's biggest stage. 
